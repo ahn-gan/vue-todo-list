@@ -68,6 +68,22 @@
           this.allItems.push(itemObj);
         }
         this.todoItem = '';
+      },
+      changeSelect(item) {
+        item.checked = !item.checked;
+        this.activeItems = this.allItems.filter(val => val.checked === false);
+        this.completedItems = this.allItems.filter(val => val.checked === true);
+        // refresh the displayItems
+        this.refreshDisplayList(this.activeButtonFlag);
+      },
+      attrButtonClass(element) {
+        this.$refs.buttonUl.childNodes.forEach(item => {
+          item.childNodes.forEach(child => {
+            child.className = "";
+          });
+        });
+        element.target.className = "selected";
+        this.activeButtonFlag = element.target.innerHTML;
       }
     },
     mounted() {
