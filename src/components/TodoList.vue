@@ -56,6 +56,22 @@
         completedItems: [],
         activeButtonFlag: ''
       }
+    },
+    methods: {
+      addItem() {
+        if (this.todoItem !== '') {
+          let itemObj = {
+            checked: false,
+            value: this.todoItem
+          };
+          this.activeItems.push(itemObj);
+          this.allItems.push(itemObj);
+        }
+        this.todoItem = '';
+      }
+    },
+    mounted() {
+      this.displayItems = this.allItems;
     }
   }
 </script>
