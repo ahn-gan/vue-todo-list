@@ -118,10 +118,26 @@
         });
         element.target.className = "selected";
         this.activeButtonFlag = element.target.innerHTML;
+      },
+      refreshDisplayList (activeFlag) {
+        this.displayItems = [];
+        if (activeFlag === 'ALL') {
+          this.displayItems = this.allItems;
+        } else if (activeFlag === 'Active') {
+          this.displayItems = this.activeItems;
+        } else {
+          this.displayItems = this.completedItems;
+        }
       }
     },
     mounted() {
       this.displayItems = this.allItems;
+      this.activeButtonFlag = 'ALL';
+    },
+    watch: {
+      activeButtonFlag: function (newVal) {
+        this.refreshDisplayList(newVal);
+      }
     }
   }
 </script>
