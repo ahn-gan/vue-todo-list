@@ -3,10 +3,10 @@
     <el-col :span="5">&nbsp;</el-col>
     <el-col :span="14">
       <li v-for="(item, index) in displayItems" :key="index">
-        <span>{{index + 1}}.&nbsp;</span>
+        <span>{{index + 1}}.&nbsp;&nbsp;</span>
         <el-checkbox @change="changeSelect(item)" :value="item.checked"></el-checkbox>
-        <span v-if="!item.editable" @dblclick="edit(item)" :index="index" style="cursor:pointer;" ref="element">{{item.value}}</span>
-        <input v-else v-model="item.value" @keypress.enter="updateItem(item)" @blur="updateItem(item)"></input>
+        <span v-if="!item.editable" @dblclick="edit(item)" style="cursor:pointer;" :class="item.className">{{item.value}}</span>
+        <input autofocus v-else v-model="item.value" @keypress.enter="updateItem(item)" @blur="updateItem(item)"></input>
       </li>
     </el-col>
     <el-col :span="3">&nbsp;</el-col>
@@ -26,6 +26,7 @@
     methods: {
       changeSelect(item) {
         item.checked = !item.checked;
+        item.className = item.className === '' ? 'selected-item' : '';
         this.refreshDisplayList(this.activeButtonFlag);
       },
       refreshDisplayList(activeFlag) {
@@ -69,9 +70,15 @@
 
   li {
     list-style-type: none;
+    margin-top: 8px;
   }
 
   .list-item {
     text-align: left;
+  }
+
+  .selected-item {
+    color: #999;
+    text-decoration: line-through;
   }
 </style>

@@ -26,7 +26,8 @@
             let itemObj = {
               checked: false,
               value: this.todoItem,
-              editable: false
+              editable: false,
+              className: ''
             };
             this.$store.commit(CHANGE_ALL_ITEMS, itemObj)
           }
