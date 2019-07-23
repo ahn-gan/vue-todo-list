@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  import {BUTTON_ACTIVE, BUTTON_ALL, BUTTON_COMPLETE, CHANGE_ACTIVE_BUTTON} from "../store";
+  import {BUTTON_ACTIVE, BUTTON_ALL, BUTTON_COMPLETE, CHANGE_ACTIVE_BUTTON} from "../util/constant";
 
     export default {
       data() {

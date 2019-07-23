@@ -12,29 +12,32 @@
 </template>
 
 <script>
-    import {CHANGE_ALL_ITEMS} from "../store";
+  import {CHANGE_ALL_ITEMS, GET_ITEMS} from "../util/constant";
 
-    export default {
-      data() {
-        return {
-          todoItem: ''
-        }
-      },
-      methods: {
-        addItem() {
-          if (this.todoItem !== '') {
-            let itemObj = {
-              checked: false,
-              value: this.todoItem,
-              editable: false,
-              className: ''
-            };
-            this.$store.commit(CHANGE_ALL_ITEMS, itemObj)
-          }
-          this.todoItem = '';
-        }
+  export default {
+    data() {
+      return {
+        todoItem: ''
       }
+    },
+    methods: {
+      addItem() {
+        if (this.todoItem !== '') {
+          let itemObj = {
+            checked: false,
+            value: this.todoItem,
+            editable: false,
+            className: ''
+          };
+          this.$store.dispatch(CHANGE_ALL_ITEMS, itemObj);
+        }
+        this.todoItem = '';
+      }
+    },
+    mounted() {
+      this.$store.dispatch(GET_ITEMS);
     }
+  }
 </script>
 
 <style scoped>

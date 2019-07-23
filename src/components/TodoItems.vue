@@ -13,20 +13,22 @@
   </el-row>
 </template>
 <script>
-  import {BUTTON_ACTIVE, BUTTON_ALL} from "../store";
+  import {BUTTON_ACTIVE, BUTTON_ALL, UPDATE_ITEM} from "../util/constant";
 
   export default {
     data() {
       return {
         completedItems: [],
         displayItems: [],
-        allItems: []
+        allItems: [],
+        itemList: []
       }
     },
     methods: {
       changeSelect(item) {
         item.checked = !item.checked;
         item.className = item.className === '' ? 'selected-item' : '';
+        this.$store.dispatch(UPDATE_ITEM, item);
         this.refreshDisplayList(this.activeButtonFlag);
       },
       refreshDisplayList(activeFlag) {
@@ -44,10 +46,11 @@
       },
       updateItem(item) {
         item.editable = false;
+        this.$store.dispatch(UPDATE_ITEM, item);
       }
     },
     mounted() {
-      this.displayItems = this.$store.state.allItems;
+      this.refreshDisplayList(this.activeButtonFlag);
     },
     watch: {
       activeButtonFlag: function (newVal) {
@@ -56,6 +59,7 @@
     },
     computed: {
       activeButtonFlag() {
+        this.displayItems = this.$store.state.allItems;
         return this.$store.state.activeButton
       }
     }

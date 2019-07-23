@@ -12,10 +12,10 @@
 </template>
 
 <script>
-  import Header from './Header'
-  import InputItem from './InputItem'
-  import TodoItems from './TodoItems'
-  import CategoryButton from './CategoryButton'
+  import Header from '../components/Header'
+  import InputItem from '../components/InputItem'
+  import TodoItems from '../components/TodoItems'
+  import CategoryButton from '../components/CategoryButton'
   export default {
     components: {
       Header, InputItem, TodoItems, CategoryButton
