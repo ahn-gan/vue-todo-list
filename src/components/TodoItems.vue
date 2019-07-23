@@ -20,7 +20,6 @@
     data() {
       return {
         completedItems: [],
-        displayItems: [],
         allItems: [],
         itemList: []
       }
@@ -30,17 +29,6 @@
         item.checked = !item.checked;
         item.className = item.className === '' ? 'selected-item' : '';
         this.$store.dispatch(UPDATE_ITEM, item);
-        this.refreshDisplayList(this.activeButtonFlag);
-      },
-      refreshDisplayList(activeFlag) {
-        this.displayItems = [];
-        if (activeFlag === BUTTON_ALL) {
-          this.displayItems = this.$store.state.allItems;
-        } else if (activeFlag === BUTTON_ACTIVE) {
-          this.displayItems = this.$store.getters.activeItems;
-        } else {
-          this.displayItems = this.$store.getters.completeItems;
-        }
       },
       edit(item) {
         item.editable = true;
@@ -51,21 +39,26 @@
       },
       deleteItem(item) {
         this.$store.dispatch(DELETE_ITEM, item);
-        this.refreshDisplayList(this.activeButtonFlag);
-      }
-    },
-    mounted() {
-      this.refreshDisplayList(this.activeButtonFlag);
-    },
-    watch: {
-      activeButtonFlag: function (newVal) {
-        this.refreshDisplayList(newVal);
       }
     },
     computed: {
-      activeButtonFlag() {
+      activeButtonFlag: function() {
         this.displayItems = this.$store.state.allItems;
         return this.$store.state.activeButton
+      },
+      displayItems: {
+        get: function() {
+          if (this.activeButtonFlag === BUTTON_ALL) {
+            return this.$store.state.allItems;
+          } else if (this.activeButtonFlag === BUTTON_ACTIVE) {
+            return this.$store.getters.activeItems;
+          } else {
+            return this.$store.getters.completeItems;
+          }
+        },
+        set: function () {
+          
+        }
       }
     }
   }
