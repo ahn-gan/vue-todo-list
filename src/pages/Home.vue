@@ -2,14 +2,22 @@
   <el-container>
     <el-header>
       <el-col :span="4" class="left-align">
-        <el-button class="el-icon-back" round @click="handleRoute"></el-button>
+        <el-button class="el-icon-back" type="primary" plain round @click="handleRoute"></el-button>
       </el-col>
       <el-col :span="16">&nbsp;</el-col>
       <el-col :span="4">{{userName}}</el-col>
     </el-header>
     <el-container>
-      <el-aside width="200px">Aside</el-aside>
-      <el-main>Main</el-main>
+      <el-aside width="200px">
+        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="vertical" background-color="#545c64"
+                 text-color="#fff" active-text-color="#ffd04b" :router="true">
+          <el-menu-item index="my-profile">我的数据</el-menu-item>
+          <el-menu-item index="todo-list">Todo List</el-menu-item>
+        </el-menu>
+      </el-aside>
+      <el-main>
+        <router-view/>
+      </el-main>
     </el-container>
   </el-container>
 </template>
@@ -19,7 +27,8 @@
     name: "Home",
     data() {
       return {
-        userName: ''
+        userName: '',
+        activeIndex: ''
       }
     },
     methods: {
@@ -29,7 +38,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$router.push('/main');
+          this.$router.push('/');
         }).catch(() => {
           console.log('cancel');
         });
@@ -43,27 +52,23 @@
 
 <style scoped>
   .el-header {
-    /*background-color: #B3C0D1;*/
-    color: #333;
+    background-color: #545c64;
+    color: #ffffff;
     text-align: center;
     line-height: 60px;
-    /*width: 100%;*/
     height: 150px;
   }
 
   .el-aside {
-    background-color: #D3DCE6;
     color: #333;
     text-align: center;
     line-height: 200px;
-    height: 800px;
   }
 
   .el-main {
-    background-color: #E9EEF3;
     color: #333;
     text-align: center;
-    line-height: 160px;
+
   }
 
   body > .el-container {
