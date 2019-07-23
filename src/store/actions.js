@@ -1,5 +1,5 @@
-import {CHANGE_ALL_ITEMS, GET_ITEMS, INIT_ALL_ITEMS, UPDATE_ITEM} from "../util/constant";
-import {addTodoItem, getTodoItems, updateTodoItem} from "../util/axiosHttpUtils";
+import {CHANGE_ALL_ITEMS, DELETE_ITEM, GET_ITEMS, INIT_ALL_ITEMS, UPDATE_ITEM} from "../util/constant";
+import {addTodoItem, getTodoItems, updateTodoItem, deleteItems} from "../util/axiosHttpUtils";
 
 const actions = {
   [INIT_ALL_ITEMS] (context, data) {
@@ -7,7 +7,7 @@ const actions = {
   },
   [CHANGE_ALL_ITEMS] (context, data) {
     addTodoItem(data).then(val => {
-      context.commit(CHANGE_ALL_ITEMS, data)
+      context.commit(CHANGE_ALL_ITEMS, val)
     });
   },
   [UPDATE_ITEM] (context, data) {
@@ -18,6 +18,11 @@ const actions = {
   [GET_ITEMS] (context) {
     getTodoItems().then( data => {
       context.commit(INIT_ALL_ITEMS, data)
+    })
+  },
+  [DELETE_ITEM] (context, data) {
+    deleteItems(data).then( response => {
+      context.commit(DELETE_ITEM, data)
     })
   }
 

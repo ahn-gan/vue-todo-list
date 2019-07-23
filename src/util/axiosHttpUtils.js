@@ -21,8 +21,14 @@ async function updateTodoItem (item) {
   return response.data || [];
 }
 
+async function deleteItems (item) {
+  let response = await axios.delete(`/todos/${item.id}`);
+  return response.data || [];
+}
+
 export {
   addTodoItem,
   updateTodoItem,
-  getTodoItems
+  getTodoItems,
+  deleteItems
 };

@@ -7,13 +7,14 @@
         <el-checkbox @change="changeSelect(item)" :value="item.checked"></el-checkbox>
         <span v-if="!item.editable" @dblclick="edit(item)" style="cursor:pointer;" :class="item.className">{{item.value}}</span>
         <input autofocus v-else v-model="item.value" @keypress.enter="updateItem(item)" @blur="updateItem(item)"></input>
+        <i class="el-icon-delete delete-icon" @click="deleteItem(item)"></i>
       </li>
     </el-col>
     <el-col :span="3">&nbsp;</el-col>
   </el-row>
 </template>
 <script>
-  import {BUTTON_ACTIVE, BUTTON_ALL, UPDATE_ITEM} from "../util/constant";
+  import {BUTTON_ACTIVE, BUTTON_ALL, DELETE_ITEM, UPDATE_ITEM} from "../util/constant";
 
   export default {
     data() {
@@ -47,6 +48,10 @@
       updateItem(item) {
         item.editable = false;
         this.$store.dispatch(UPDATE_ITEM, item);
+      },
+      deleteItem(item) {
+        this.$store.dispatch(DELETE_ITEM, item);
+        this.refreshDisplayList(this.activeButtonFlag);
       }
     },
     mounted() {
@@ -84,5 +89,15 @@
   .selected-item {
     color: #999;
     text-decoration: line-through;
+  }
+
+  .delete-icon {
+    display: none;
+    cursor: pointer;
+  }
+
+  li:hover .delete-icon {
+    display: inline;
+    cursor: pointer;
   }
 </style>

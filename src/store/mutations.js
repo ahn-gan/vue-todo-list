@@ -1,4 +1,4 @@
-import {CHANGE_ACTIVE_BUTTON, CHANGE_ALL_ITEMS, INIT_ALL_ITEMS, UPDATE_ITEM} from "../util/constant";
+import {CHANGE_ACTIVE_BUTTON, CHANGE_ALL_ITEMS, DELETE_ITEM, INIT_ALL_ITEMS, UPDATE_ITEM} from "../util/constant";
 
 const mutations =  {
   [CHANGE_ALL_ITEMS] (state, data) {
@@ -14,6 +14,9 @@ const mutations =  {
     let item = state.allItems.filter(val => val.id === data.id);
     let index = state.allItems.indexOf(item);
     state.allItems[index] = data;
+  },
+  [DELETE_ITEM] (state, data) {
+    state.allItems = state.allItems.filter(val => val.id !== data.id);
   }
 };
 
